@@ -32,7 +32,7 @@ class HomeScreen extends ConsumerWidget {
               top: -150,
               left: -100,
               child: _buildGlowOrb(
-                Colors.deepPurpleAccent.withOpacity(0.5),
+                Colors.deepPurpleAccent.withValues(alpha: 0.5),
                 350,
               ),
             ),
@@ -40,7 +40,10 @@ class HomeScreen extends ConsumerWidget {
             Positioned(
               bottom: 0,
               right: -100,
-              child: _buildGlowOrb(Colors.blueAccent.withOpacity(0.4), 300),
+              child: _buildGlowOrb(
+                Colors.blueAccent.withValues(alpha: 0.4),
+                300,
+              ),
             ),
 
           SafeArea(
@@ -101,7 +104,7 @@ class HomeScreen extends ConsumerWidget {
             Text(
               'Hi, Eduardo!',
               style: TextStyle(
-                color: textColor.withOpacity(0.8),
+                color: textColor.withValues(alpha: 0.8),
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
@@ -113,8 +116,9 @@ class HomeScreen extends ConsumerWidget {
               backgroundColor: Colors.transparent,
             ),
             const SizedBox(width: 10),
+            Icon(
               Icons.notifications_none_rounded,
-              color: textColor.withOpacity(0.8),
+              color: textColor.withValues(alpha: 0.8),
             ),
           ],
         ).animate().fade(duration: 600.ms).slideY(begin: -0.2, end: 0),
@@ -129,33 +133,40 @@ class HomeScreen extends ConsumerWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Good Morning, Eduardo!',
-              style: TextStyle(
-                color: textColor,
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              'A sophisticated task management app',
-              style: TextStyle(color: textColor.withOpacity(0.5), fontSize: 14),
-            ),
-            const SizedBox(height: 30),
-            Text(
-              'My Tasks',
-              style: TextStyle(
-                color: textColor,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ).animate(delay: 200.ms).fade(duration: 600.ms).slideX(begin: -0.1, end: 0),
+        child:
+            Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Good Morning, Eduardo!',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      'A sophisticated task management app',
+                      style: TextStyle(
+                        color: textColor.withValues(alpha: 0.5),
+                        fontSize: 14,
+                      ),
+                    ),
+                    const SizedBox(height: 30),
+                    Text(
+                      'My Tasks',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                )
+                .animate(delay: 200.ms)
+                .fade(duration: 600.ms)
+                .slideX(begin: -0.1, end: 0),
       ),
     );
   }
@@ -165,9 +176,12 @@ class HomeScreen extends ConsumerWidget {
       delegate: SliverChildBuilderDelegate((context, index) {
         final task = tasks[index];
         return Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: _buildTaskCard(ref, task),
-        ).animate(delay: (300 + (100 * index)).ms).fade(duration: 500.ms).slideY(begin: 0.2, end: 0);
+              padding: const EdgeInsets.only(bottom: 20),
+              child: _buildTaskCard(ref, task),
+            )
+            .animate(delay: (300 + (100 * index)).ms)
+            .fade(duration: 500.ms)
+            .slideY(begin: 0.2, end: 0);
       }, childCount: tasks.length),
     );
   }
@@ -194,7 +208,7 @@ class HomeScreen extends ConsumerWidget {
         padding: const EdgeInsets.only(right: 20),
         alignment: Alignment.centerRight,
         decoration: BoxDecoration(
-          color: Colors.redAccent.withOpacity(0.8),
+          color: Colors.redAccent.withValues(alpha: 0.8),
           borderRadius: BorderRadius.circular(20),
         ),
         child: const Icon(Icons.delete, color: Colors.white),
@@ -207,13 +221,13 @@ class HomeScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: isDark
-                  ? Colors.white.withOpacity(0.05)
-                  : Colors.black.withOpacity(0.02),
+                  ? Colors.white.withValues(alpha: 0.5)
+                  : Colors.black.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
                 color: isDark
-                    ? Colors.white.withOpacity(0.1)
-                    : Colors.black.withOpacity(0.1),
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : Colors.black.withValues(alpha: 0.1),
                 width: 1.5,
               ),
             ),
@@ -271,7 +285,7 @@ class HomeScreen extends ConsumerWidget {
                                           : 'Pending'),
                                 style: TextStyle(
                                   color: isDark
-                                      ? Colors.white.withOpacity(0.5)
+                                      ? Colors.white.withValues(alpha: 0.5)
                                       : Colors.black54,
                                   fontSize: 12,
                                 ),
@@ -331,8 +345,8 @@ class HomeScreen extends ConsumerWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: isDark
-                          ? Colors.white.withOpacity(0.05)
-                          : Colors.black.withOpacity(0.05),
+                          ? Colors.white.withValues(alpha: 0.05)
+                          : Colors.black.withValues(alpha: 0.05),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: FractionallySizedBox(
@@ -352,8 +366,10 @@ class HomeScreen extends ConsumerWidget {
                           boxShadow: [
                             BoxShadow(
                               color: isDone
-                                  ? const Color(0xFF8E2DE2).withOpacity(0.5)
-                                  : Colors.pinkAccent.withOpacity(0.5),
+                                  ? const Color(
+                                      0xFF8E2DE2,
+                                    ).withValues(alpha: 0.5)
+                                  : Colors.pinkAccent.withValues(alpha: 0.5),
                               blurRadius: 10,
                               offset: const Offset(0, 0),
                             ),
@@ -366,8 +382,8 @@ class HomeScreen extends ConsumerWidget {
                 const SizedBox(height: 20),
                 Divider(
                   color: isDark
-                      ? Colors.white.withOpacity(0.1)
-                      : Colors.black.withOpacity(0.05),
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : Colors.black.withValues(alpha: 0.05),
                   height: 1,
                 ),
                 const SizedBox(height: 15),
@@ -524,14 +540,14 @@ class HomeScreen extends ConsumerWidget {
               errorBuilder: (context, error, stackTrace) => Icon(
                 Icons.auto_awesome,
                 size: 80,
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
               ),
             ),
             const SizedBox(height: 20),
             Text(
               'No pending tasks.',
               style: TextStyle(
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white.withValues(alpha: 0.5),
                 fontSize: 18,
               ),
             ),
